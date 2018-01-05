@@ -67,6 +67,7 @@
 	{{> modalAbuse}}
 	{{> modalRetract}}
 	{{> modalCopright}}
+    {{> modalPaypal}}
 
 	{{#if data.currentUser}}
 		{{> modalEdit}}
@@ -83,7 +84,7 @@
 </div>
 <h1 class="main-logo"><a href="/"><img src="http://{{data.config.S3_BUCKET_NAME}}/img/logo_black.png" alt="One Million Human Faces"/></a></h1>
 
-<div class="menu-container">
+<div class="menu-container" id="btn-login">
 	{{#if data.currentUser}}
 	<div class="dropdown">
 		<a href="{{data.config.root_url}}/#number/{{data.currentUser.number}}"><img src="http://{{data.config.S3_BUCKET_NAME}}{{data.currentUser.picture}}" width="32" height="32" /></a>

@@ -16,6 +16,7 @@ const addStat = async(Lang) => {
       await newStat.save();
     }else{
       await Stats.findOneAndUpdate({ _id: stats[0]._id }, { $set: { count: stats[0].count + 1 } });
+
     }
   }catch(err) {
     console.log(err);

@@ -4,7 +4,7 @@
   "description": "A sample Node.js app using Express 4",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node -- ./app/src/bin/www",
+    "start": "nodemon --inspect --exec babel-node -- ./app/src/bin/www",
     "start-prod": "NODE_ENV=production node app/dist/bin/www",
     "build-start-prod": "npm run build-back && npm run start-prod",
     "build-back": "rimraf app/dist/ && babel app/src --out-dir app/dist --ignore ./public/js --copy-files && ncp app/src/public/js app/dist/public/js",
@@ -61,7 +61,7 @@
     "passport": "~0.4.0",
     "passport-facebook": "~2.1.1",
     "passport-twitter": "~1.0.3",
-    "paypal-rest-sdk": "^1.5.3",
+    "paypal-rest-sdk": "^1.8.1",
     "request": "~2.83.0",
     "twitter": "^1.2.5",
     "underscore": "^1.8.3",

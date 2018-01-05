@@ -36,6 +36,7 @@ define('blocIthem', ['constantes', 'btnSocial', 'messageBus', 'colorMapping', 'c
 		var _itemBorder;
 		var _itemBorderImage = new Image();
 		var _timerImageLoading;
+		var _paypal;
 
 		_itemBorderImage.src = _app.config.root_url+"/images/itemBorder@2x.png";
 
@@ -96,6 +97,10 @@ define('blocIthem', ['constantes', 'btnSocial', 'messageBus', 'colorMapping', 'c
 			_tw.x = Math.round(ITEM_WIDTH-20-_tw.width/_tw.resolution);
 			_tw.y = Math.round(ITEM_HEIGHT-18-_tw.height/_tw.resolution);
 
+            _paypal = new BtnSocial(constantes.icons.ARROW_RIGHT, "#7F7F7F", onPaypalClick, null, null, 30);
+            _paypal.x = Math.round(ITEM_WIDTH-20-_paypal.width/_paypal.resolution);
+            _paypal.y = Math.round(20);
+
 			_share = new BtnSocial(constantes.icons.SHARE, "#00FFFF", onShareCLick);
             _share.x = Math.round(ITEM_WIDTH/2-15);
             _share.y = Math.round((ITEM_HEIGHT+30)/2-15);
@@ -114,6 +119,7 @@ define('blocIthem', ['constantes', 'btnSocial', 'messageBus', 'colorMapping', 'c
 			messageBus.addEventListener('ScrollContainer:StartMoving', function(){
 				_tw.disable(0.25, 0);
 				_fb.disable(0.25, 0);
+                _paypal.disable(0.25, 0);
                 _claim.disable(0.25, 0);
                 _decline.disable(0.25, 0);
 				_canClick = false;
@@ -123,6 +129,7 @@ define('blocIthem', ['constantes', 'btnSocial', 'messageBus', 'colorMapping', 'c
 				var delay = Math.random()/3;
 				_tw.enable(0.25, delay);
 				_fb.enable(0.25, delay);
+                _paypal.enable(0.25, delay);
                 _claim.enable(0.25, delay);
                 _decline.enable(0.25, delay);
 				_canClick = true;
@@ -150,6 +157,7 @@ define('blocIthem', ['constantes', 'btnSocial', 'messageBus', 'colorMapping', 'c
 			_container.addChild(_maskPicture);
 			_container.addChild(_fb);
 			_container.addChild(_tw);
+            _container.addChild(_paypal);
 			_container.addChild(_share);
 			_container.addChild(_claim);
 			_container.addChild(_decline);
@@ -171,6 +179,15 @@ define('blocIthem', ['constantes', 'btnSocial', 'messageBus', 'colorMapping', 'c
 		function onTWCLick(event) {
 			parent.location = "/auth/twitter/register/" + _id;
 		}
+
+        /**
+         *
+         * @param event
+         */
+        function onPaypalClick(event) {
+          //alert('hello');
+          $('.modal-paypal').modal('show');
+        }
 
 		/**
 		 *

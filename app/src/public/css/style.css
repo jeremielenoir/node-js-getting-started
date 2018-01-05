@@ -450,7 +450,8 @@ body{
   left:0;
   right:0;
   background:#ededed;
-  height:260px;
+  /*height:260px;*/
+	height: 325px;
 }
 
 .img-modal-body{
@@ -468,11 +469,23 @@ body{
 	display:none;
 }
 
+.modal-paypal .modal-content{
+	height:200px;
+}
+.modal-paypal .modal-body{
+	height:130px;
+}
+.modal-paypal .modal-footer{
+	display:none;
+}
+
 .modal-faq .modal-content{
 	/*height:300px;*/
+	height: 300px;
 }
 .modal-faq .modal-body{
 	/*height:230px;*/
+	height: 300px;
 }
 .modal-faq .modal-footer{
 	display:none;
@@ -687,6 +700,11 @@ input[type=checkbox]:checked + label:after {
 	-ms-transition:0.25s;
 	-o-transition:0.25s;
 	transition:0.25s;
+}
+
+#btn-login {
+	border: 1px solid rgb(100, 100, 100);
+	border-radius: 4px;
 }
 
 .menu-container:hover {
