@@ -24,6 +24,13 @@ import routes from './routes'; // all define routes
 import passport from './passport';
 import { FaceHelper, download } from'./utils';
 import s3bucket from './providers/aws'; // aws provider
+import paypal from 'paypal-rest-sdk';
+
+paypal.configure({
+  'mode': 'sandbox', // sandbox or live
+  'client_id': 'AWteQQRAdwx-D6RJs7sweRaikvOxhEy_q0jXH-mvGcfRDzfCcyFXNvcyxKdiIsgS-PIUmFQq5-tSXrzv',
+  'client_secret': 'EK5ehTgK1jYk9FePoXRmmZAO09eHyGDqQ6ARU1k7nan9sEq-H3Zcbi7MI-dkDl2h1SJnY2UeVB_Ii4l6'
+});
 
 const imgDestPath = path.resolve('./public/img');
 const publicPath = path.resolve('./public');
@@ -72,7 +79,7 @@ app.engine('handlebars',
           return _.contains(listTab, search, 0) ? 'checked="true"' : '';
         }
         return '';
-          
+
 
       },
       'json': (context) => {
@@ -117,6 +124,78 @@ app.engine('handlebars',
 app.set('views', path.resolve(__dirname, 'views'));
 app.set('view engine', 'handlebars');
 
+// ====================== node paypal sdk sample ============================ //
+
+app.get('/payment', (req, res) => res.render('payment'));
+
+app.post('/pay', (req, res) => {
+  const fullUrl = `${req.protocol }://${ req.get('host')}`;
+  const create_payment_json = {
+    'intent': 'sale',
+    'payer': {
+      'payment_method': 'paypal'
+    },
+    'redirect_urls': {
+      'return_url': `${fullUrl}/success-payment`,
+      'cancel_url': `${fullUrl}/cancel-payment`
+    },
+    'transactions': [ {
+      'item_list': {
+        'items': [ {
+          'name': 'Blue hat',
+          'sku': '003',
+          'price': '2.00',
+          'currency': 'EUR',
+          'quantity': 1
+        } ]
+      },
+      'amount': {
+        'currency': 'EUR',
+        'total': '2.00'
+      },
+      'description': 'Hat for the best team ever'
+    } ]
+  };
+  paypal.payment.create(create_payment_json, (error, payment) => {
+    if (error) {
+      throw error;
+    } else {
+      for(let i = 0;i < payment.links.length;i++) {
+        if(payment.links[i].rel === 'approval_url') {
+          res.redirect(payment.links[i].href);
+        }
+      }
+    }
+  });
+
+});
+
+app.get('/success-payment', (req, res) => {
+  const payerId = req.query.PayerID;
+  const paymentId = req.query.paymentId;
+
+  const execute_payment_json = {
+    'payer_id': payerId,
+    'transactions': [ {
+      'amount': {
+        'currency': 'EUR',
+        'total': '2.00'
+      }
+    } ]
+  };
+
+  paypal.payment.execute(paymentId, execute_payment_json, (error, payment) => {
+    if (error) {
+      console.log(error.response);
+      throw error;
+    } else {
+      console.log(JSON.stringify(payment));
+      res.redirect('/');
+    }
+  });
+});
+
+app.get('/cancel-payment', (req, res) => res.send('Cancelled'));
 
 // ROUTES FOR OUR API
 // =============================================================================

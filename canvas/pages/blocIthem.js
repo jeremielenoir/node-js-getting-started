@@ -119,7 +119,6 @@ define('blocIthem', ['constantes', 'btnSocial', 'messageBus', 'colorMapping', 'c
 			messageBus.addEventListener('ScrollContainer:StartMoving', function(){
 				_tw.disable(0.25, 0);
 				_fb.disable(0.25, 0);
-                _paypal.disable(0.25, 0);
                 _claim.disable(0.25, 0);
                 _decline.disable(0.25, 0);
 				_canClick = false;
@@ -129,7 +128,6 @@ define('blocIthem', ['constantes', 'btnSocial', 'messageBus', 'colorMapping', 'c
 				var delay = Math.random()/3;
 				_tw.enable(0.25, delay);
 				_fb.enable(0.25, delay);
-                _paypal.enable(0.25, delay);
                 _claim.enable(0.25, delay);
                 _decline.enable(0.25, delay);
 				_canClick = true;
@@ -157,7 +155,6 @@ define('blocIthem', ['constantes', 'btnSocial', 'messageBus', 'colorMapping', 'c
 			_container.addChild(_maskPicture);
 			_container.addChild(_fb);
 			_container.addChild(_tw);
-            _container.addChild(_paypal);
 			_container.addChild(_share);
 			_container.addChild(_claim);
 			_container.addChild(_decline);
@@ -188,7 +185,6 @@ define('blocIthem', ['constantes', 'btnSocial', 'messageBus', 'colorMapping', 'c
           //alert('hello');
           $('.modal-paypal').modal('show');
         }
-
 		/**
 		 *
 		 * @param event
