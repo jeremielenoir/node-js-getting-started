@@ -29,9 +29,9 @@ const createUserFromTwitter = async(twitterUserData, number, done) => {
     /** REFACTOR **/
     try{
       const { body } = await request.get({ url: twitterUserData.profile_image_url.replace('_normal', ''), encoding: 'binary' });
-      await fs.writeFile('{$imgDestPath}/${twitterUserData.id}.jpeg', body, 'binary');
+      await fs.writeFile(`{$imgDestPath}/${twitterUserData.id}.jpeg`, body, 'binary');
       await s3bucket.createBucket();
-      const stdout = await gm('{$imgDestPath}/${twitterUserData.id}.jpeg').resize('150', '150').stream();
+      const stdout = await gm(`{$imgDestPath}/${twitterUserData.id}.jpeg`).resize('150', '150').stream();
       let buf = new Buffer('');
       let data = await stdout.on('data');
       buf = Buffer.concat([ buf, data ]);
@@ -39,9 +39,9 @@ const createUserFromTwitter = async(twitterUserData, number, done) => {
       let s3data = {
         Bucket: config.S3_BUCKET_NAME,
         ACL: 'public-read',
-        Key: 'img/${twitterUserData.id}.jpeg',
+        Key: `img/${twitterUserData.id}.jpeg`,
         Body: buf,
-        ContentType: mime.lookup('${imgDestPath}/${twitterUserData.id}.jpeg')
+        ContentType: mime.lookup(`${imgDestPath}/${twitterUserData.id}.jpeg`)
       };
       await s3bucket.putObject(s3data);
       const face = new Face();
@@ -49,7 +49,7 @@ const createUserFromTwitter = async(twitterUserData, number, done) => {
       face.firstname = twitterUserData.screen_name; // set the faces name (comes from the request)
       face.lastname = twitterUserData.screen_name; // set the faces name (comes from the request)
       face.number = number; // set the faces name (comes from the request)
-      face.picture = '/img/${twitterUserData.id}.jpeg'; // set the faces name (comes from the request)
+      face.picture = `/img/${twitterUserData.id}.jpeg`; // set the faces name (comes from the request)
       face.network = 'twitter'; // set the faces name (comes from the request)
       face.network_id = twitterUserData.id; // set the faces name (comes from the request)
       face.lang = twitterUserData.lang; // set the faces name (comes from the request)
@@ -97,4 +97,4 @@ const FaceHelper = {
 };
 
 
-export default { createUserFromTwitter, addStat, download, FaceHelper };
+export { createUserFromTwitter, addStat, download, FaceHelper };

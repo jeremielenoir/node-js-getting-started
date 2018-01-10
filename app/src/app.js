@@ -310,6 +310,7 @@ publicRouter.get('/success/:id', (req, res, next) => {
         face.number_id = parseInt(face.number, 10) - 1;
       }
 
+      console.log('FACEHELPER', FaceHelper);
       FaceHelper.getPreviousFace(face.number, (previousFace) => {
 
         FaceHelper.getNextFace(face.number, (nextFace) => {
