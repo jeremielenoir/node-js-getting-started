@@ -250,6 +250,5 @@ module.exports = function (grunt) {
     grunt.registerTask('watch_server', ["watch_tasks", "watch"]);
     grunt.registerTask('watch_no_server', ["watch_tasks", "watch"]);
     grunt.registerTask('default', ["watch_server"]);
-    grunt.registerTask('sass2',['sass:dist']);
 
 };
