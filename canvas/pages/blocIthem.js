@@ -157,7 +157,7 @@ define('blocIthem', ['constantes', 'btnSocial', 'messageBus', 'colorMapping', 'c
 			_container.addChild(_maskPicture);
 			_container.addChild(_fb);
 			_container.addChild(_tw);
-      _container.addChild(_paypal);
+     		 _container.addChild(_paypal);
 			_container.addChild(_share);
 			_container.addChild(_claim);
 			_container.addChild(_decline);
@@ -186,7 +186,8 @@ define('blocIthem', ['constantes', 'btnSocial', 'messageBus', 'colorMapping', 'c
          */
         function onPaypalClick(event) {
           //alert('hello');
-          $('.modal-paypal').modal('show');
+          //$('.modal-paypal').modal('show');
+          parent.location = "/#paypal/" + _id;
         }
 		/**
 		 *

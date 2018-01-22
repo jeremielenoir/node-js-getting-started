@@ -332,7 +332,8 @@ body {
   height: 150px;
   opacity: 0.9; }
   .main-logo img {
-    width: 100%; }
+    width: 100%;
+    border: 1px solid #646464; }
 
 .legals-footer {
   position: absolute;
@@ -605,16 +606,16 @@ input[type=checkbox]:checked + label {
   .search-pagination-label.is-active {
     display: table-cell; }
 
-.search-pagination-button-prev, .search-reset {
+.search-pagination-button-prev {
   display: none;
   cursor: pointer;
   height: 100%; }
-  .search-pagination-button-prev:before, .search-reset:before {
+  .search-pagination-button-prev:before {
     line-height: 40px;
     font-size: 19px; }
-  .search-pagination-button-prev:hover, .search-reset:hover {
+  .search-pagination-button-prev:hover {
     color: #fff; }
-  .search-pagination-button-prev.is-active, .is-active.search-reset {
+  .search-pagination-button-prev.is-active {
     display: table-cell; }
 
 .search-pagination-button-next {
@@ -629,13 +630,17 @@ input[type=checkbox]:checked + label {
   .search-pagination-button-next.is-active {
     display: table-cell; }
 
-.search-reset:before {
-  line-height: 40px;
-  font-size: 19px; }
-.search-reset:hover {
-  color: #fff; }
-.search-reset.is-active {
-  display: table-cell; }
+.search-reset {
+  display: none;
+  cursor: pointer;
+  height: 100%; }
+  .search-reset:before {
+    line-height: 40px;
+    font-size: 19px; }
+  .search-reset:hover {
+    color: #fff; }
+  .search-reset.is-active {
+    display: table-cell; }
 
 #btn-login {
   border: 1px solid #646464;
